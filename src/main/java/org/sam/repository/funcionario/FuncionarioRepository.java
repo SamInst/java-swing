@@ -1,5 +1,6 @@
 package org.sam.repository.funcionario;
 
+import org.sam.configuracoes.PostgresDatabaseConnect;
 import raven.alerts.MessageAlerts;
 
 import java.sql.*;
@@ -7,11 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionarioRepository {
-    private final Connection conexao;
-
-    public FuncionarioRepository(Connection conexao) {
-        this.conexao = conexao;
-    }
+    Connection conexao = PostgresDatabaseConnect.connect();
 
     public void adicionarFuncionario(FuncionarioRequest request){
         String sql = """
