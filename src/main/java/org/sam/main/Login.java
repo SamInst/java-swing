@@ -8,7 +8,7 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
 import org.sam.component.PainelCobertura;
 import org.sam.component.PainelLoginERegistro;
-import org.sam.repository.perfil.PerfilRepository;
+import org.sam.repository.usuario.UsuarioRepository;
 import raven.popup.GlassPanePopup;
 
 import javax.swing.*;
@@ -50,7 +50,7 @@ public class Login extends JFrame {
     private void iniciar() {
         migLayout = new MigLayout("fill, insets 0");
         painelCobertura = new PainelCobertura();
-        painelLoginERegistro = new PainelLoginERegistro(new PerfilRepository());
+        painelLoginERegistro = new PainelLoginERegistro(new UsuarioRepository());
 
         TimingTarget alvo = new TimingTargetAdapter() {
             @Override

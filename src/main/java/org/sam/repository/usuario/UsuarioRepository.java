@@ -1,4 +1,4 @@
-package org.sam.repository.perfil;
+package org.sam.repository.usuario;
 
 import org.sam.configuracoes.PostgresDatabaseConnect;
 import raven.alerts.MessageAlerts;
@@ -10,72 +10,44 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HexFormat;
-import java.util.Optional;
 
-public class PerfilRepository {
+public class UsuarioRepository {
     Connection conexao = PostgresDatabaseConnect.connect();
 
-    public boolean criarPerfil(Perfil perfil) {
-        if (usuarioOuEmailExiste(perfil.usuario(), perfil.email())) {
+    public boolean criarPerfil(Usuario usuario) {
+        if (usuarioOuEmailExiste(usuario.usuario(), usuario.email())) {
             MessageAlerts.getInstance()
                     .showMessage(
-                            "Erro ao criar perfil",
+                            "Erro ao criar usuario",
                             "Usuário ou email já existe no sistema",
                             MessageAlerts.MessageType.ERROR);
             return false;
         }
 
         String sql = """
-                INSERT INTO perfil (usuario, email, senha)
+                INSERT INTO usuario (usuario, email, senha)
                 VALUES (?, ?, ?);
                 """;
 
         try (PreparedStatement statement = conexao.prepareStatement(sql)) {
-            statement.setString(1, perfil.usuario());
-            statement.setString(2, perfil.email());
-            statement.setString(3, criptografarSenha(perfil.senha()));
+            statement.setString(1, usuario.usuario());
+            statement.setString(2, usuario.email());
+            statement.setString(3, criptografarSenha(usuario.senha()));
 
             int linhasAfetadas = statement.executeUpdate();
             return linhasAfetadas > 0;
         } catch (SQLException e) {
             MessageAlerts.getInstance()
                     .showMessage(
-                            "Erro ao criar perfil",
+                            "Erro ao criar usuario",
                             e.getMessage(),
                             MessageAlerts.MessageType.ERROR);
             throw new RuntimeException(e);
         }
     }
 
-    public Optional<Perfil> buscarPerfilPorId(Long id) {
-        String sql = "SELECT usuario, email, senha FROM perfil WHERE id = ?";
-
-        try (PreparedStatement statement = conexao.prepareStatement(sql)) {
-            statement.setLong(1, id);
-
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    Perfil perfil = new Perfil(
-                            resultSet.getString("usuario"),
-                            resultSet.getString("email"),
-                            resultSet.getString("senha")
-                    );
-                    return Optional.of(perfil);
-                }
-                return Optional.empty();
-            }
-        } catch (SQLException e) {
-            MessageAlerts.getInstance()
-                    .showMessage(
-                            "Erro ao buscar perfil",
-                            e.getMessage(),
-                            MessageAlerts.MessageType.ERROR);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public Perfil autenticarUsuario(String email, String senha) {
-        String sql = "SELECT usuario, email, senha FROM perfil WHERE email = ?";
+    public Usuario autenticarUsuario(String email, String senha) {
+        String sql = "SELECT usuario, email, senha FROM usuario WHERE email = ?";
 
         try (PreparedStatement statement = conexao.prepareStatement(sql)) {
             statement.setString(1, email);
@@ -86,7 +58,7 @@ public class PerfilRepository {
                     String senhaCriptografada = criptografarSenha(senha);
 
                     if (senhaCriptografada.equals(senhaArmazenada)) {
-                        return new Perfil(
+                        return new Usuario(
                                 resultSet.getString("usuario"),
                                 resultSet.getString("email"),
                                 ""
@@ -101,7 +73,7 @@ public class PerfilRepository {
     }
 
     private boolean usuarioOuEmailExiste(String usuario, String email) {
-        String sql = "SELECT COUNT(*) FROM perfil WHERE usuario = ? OR email = ?";
+        String sql = "SELECT COUNT(*) FROM usuario WHERE usuario = ? OR email = ?";
 
         try (PreparedStatement statement = conexao.prepareStatement(sql)) {
             statement.setString(1, usuario);

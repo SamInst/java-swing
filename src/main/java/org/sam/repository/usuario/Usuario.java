@@ -1,6 +1,6 @@
-package org.sam.repository.perfil;
+package org.sam.repository.usuario;
 
-public record Perfil(
+public record Usuario(
         String usuario,
         String email,
         String senha

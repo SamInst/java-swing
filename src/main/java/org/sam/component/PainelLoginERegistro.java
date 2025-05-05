@@ -1,8 +1,8 @@
 package org.sam.component;
 
 import net.miginfocom.swing.MigLayout;
-import org.sam.repository.perfil.Perfil;
-import org.sam.repository.perfil.PerfilRepository;
+import org.sam.repository.usuario.Usuario;
+import org.sam.repository.usuario.UsuarioRepository;
 import org.sam.swing.Button;
 import org.sam.swing.MyPasswordField;
 import org.sam.swing.MyTextField;
@@ -15,14 +15,14 @@ import static org.sam.main.CoresApp.BRANCO;
 import static org.sam.main.CoresApp.COR_PADRAO;
 
 public class PainelLoginERegistro extends JLayeredPane {
-    private final PerfilRepository perfilRepository;
+    private final UsuarioRepository usuarioRepository;
 
     private JPanel login;
     private JPanel registro;
     private static final Color COR_TEXTO = Color.DARK_GRAY;
 
-    public PainelLoginERegistro(PerfilRepository perfilRepository) {
-        this.perfilRepository = perfilRepository;
+    public PainelLoginERegistro(UsuarioRepository usuarioRepository) {
+        this.usuarioRepository = usuarioRepository;
         iniciarComponentes();
         iniciarRegistro();
         iniciarLogin();
@@ -78,10 +78,10 @@ public class PainelLoginERegistro extends JLayeredPane {
             String email = txtEmail.getText().trim();
             String senha = new String(txtSenha.getPassword());
 
-            Perfil novoPerfil = new Perfil(usuario, email, senha);
+            Usuario novoUsuario = new Usuario(usuario, email, senha);
 
             try {
-                boolean sucesso = perfilRepository.criarPerfil(novoPerfil);
+                boolean sucesso = usuarioRepository.criarPerfil(novoUsuario);
 
                 if (sucesso) {
                     MessageAlerts.getInstance()
@@ -127,12 +127,12 @@ public class PainelLoginERegistro extends JLayeredPane {
         botao.addActionListener(e -> {
             String senha = new String(txtSenha.getPassword());
             try {
-                Perfil perfilAutenticado = perfilRepository.autenticarUsuario(txtEmail.getText(), senha);
+                Usuario usuarioAutenticado = usuarioRepository.autenticarUsuario(txtEmail.getText(), senha);
 
                 MessageAlerts.getInstance()
                         .showMessage(
                                 "Autenticação bem-sucedida",
-                                "Bem-vindo, " + perfilAutenticado.usuario() + "!",
+                                "Bem-vindo, " + usuarioAutenticado.usuario() + "!",
                                 MessageAlerts.MessageType.SUCCESS);
 
             } catch (RuntimeException ex) {
