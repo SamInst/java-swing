@@ -10,17 +10,12 @@ import javax.swing.*;
 import java.text.DateFormatSymbols;
 
 public class Header extends JPanel {
-
     protected JButton buttonMonth;
     protected JButton buttonYear;
-
     protected Icon backIcon;
-
     protected Icon forwardIcon;
 
-    public Header() {
-        this(10, 2023);
-    }
+    public Header() { this(10, 2023); }
 
     public Header(int month, int year) {
         init(month, year);
@@ -67,19 +62,15 @@ public class Header extends JPanel {
     }
 
     protected Icon createDefaultBackIcon() {
-        return new FlatSVGIcon("raven/datetime/icon/back.svg");
+        return new FlatSVGIcon("icones/calendario/back.svg");
     }
 
     protected Icon createDefaultForwardIcon() {
-        return new FlatSVGIcon("raven/datetime/icon/forward.svg");
+        return new FlatSVGIcon("icones/calendario/forward.svg");
     }
 
     public void addDateControlListener(DateControlListener listener) {
         listenerList.add(DateControlListener.class, listener);
-    }
-
-    public void removeDateControlListener(DateControlListener listener) {
-        listenerList.remove(DateControlListener.class, listener);
     }
 
     public void fireDateControlChanged(DateControlEvent event) {
@@ -94,21 +85,5 @@ public class Header extends JPanel {
     public void setDate(int month, int year) {
         buttonMonth.setText(DateFormatSymbols.getInstance().getMonths()[month]);
         buttonYear.setText(year + "");
-    }
-
-    public Icon getBackIcon() {
-        return backIcon;
-    }
-
-    public void setBackIcon(Icon backIcon) {
-        this.backIcon = backIcon;
-    }
-
-    public Icon getForwardIcon() {
-        return forwardIcon;
-    }
-
-    public void setForwardIcon(Icon forwardIcon) {
-        this.forwardIcon = forwardIcon;
     }
 }

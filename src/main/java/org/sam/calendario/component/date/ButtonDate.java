@@ -17,12 +17,11 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
 public class ButtonDate extends JButton {
-
     private final DatePicker datePicker;
     private final SingleDate date;
     private boolean press;
     private boolean hover;
-    private int rowIndex;
+    private final int rowIndex;
 
     public ButtonDate(DatePicker datePicker, SingleDate date, boolean enable, int rowIndex) {
         this.datePicker = datePicker;
@@ -84,13 +83,11 @@ public class ButtonDate extends JButton {
             }
         });
         if (enable) {
-            putClientProperty(FlatClientProperties.STYLE, "" +
-                    "margin:7,7,7,7;" +
+            putClientProperty(FlatClientProperties.STYLE, "margin:7,7,7,7;" +
                     "focusWidth:2;" +
                     "selectedForeground:contrast($Component.accentColor,$Button.background,#fff)");
         } else {
-            putClientProperty(FlatClientProperties.STYLE, "" +
-                    "margin:7,7,7,7;" +
+            putClientProperty(FlatClientProperties.STYLE, "margin:7,7,7,7;" +
                     "focusWidth:2;" +
                     "selectedForeground:contrast($Component.accentColor,$Button.background,#fff);" +
                     "foreground:$Button.disabledText");
@@ -111,7 +108,6 @@ public class ButtonDate extends JButton {
         g2.fill(new Ellipse2D.Double(x, y, size, size));
         DateSelectionModel dateSelectionModel = datePicker.getDateSelectionModel();
 
-        //  paint date between selected
         if (dateSelectionModel.getDateSelectionMode() == DatePicker.DateSelectionMode.BETWEEN_DATE_SELECTED && dateSelectionModel.getDate() != null) {
             g2.setColor(getBetweenDateColor());
             if (date.between(dateSelectionModel.getDate(), getToDate())) {
@@ -143,13 +139,13 @@ public class ButtonDate extends JButton {
             double xx = (width - space) / 2;
             double yy = (height - space) / 2;
             Area area = new Area(new Ellipse2D.Double(xx, yy, space, space));
+            float s;
             if (isSelected) {
-                float s = UIScale.scale(1);
-                area.subtract(new Area(new Ellipse2D.Double(x + s, y + s, size - s * 2, size - s * 2)));
+                s = UIScale.scale(1);
             } else {
-                float s = UIScale.scale(2);
-                area.subtract(new Area(new Ellipse2D.Double(x + s, y + s, size - s * 2, size - s * 2)));
+                s = UIScale.scale(2);
             }
+            area.subtract(new Area(new Ellipse2D.Double(x + s, y + s, size - s * 2, size - s * 2)));
             Color accentColor = getAccentColor();
             g2.setColor(isSelected ? getBorderColor(accentColor) : accentColor);
             g2.fill(area);

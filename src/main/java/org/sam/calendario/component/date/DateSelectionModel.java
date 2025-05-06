@@ -4,13 +4,11 @@ import org.sam.calendario.DatePicker;
 import org.sam.calendario.DateSelectionAble;
 import org.sam.calendario.component.date.event.DateSelectionModelEvent;
 import org.sam.calendario.component.date.event.DateSelectionModelListener;
-
 import javax.swing.event.EventListenerList;
 
 public class DateSelectionModel {
-
     protected EventListenerList listenerList = new EventListenerList();
-    private DatePicker.DateSelectionMode dateSelectionMode;
+    private final DatePicker.DateSelectionMode dateSelectionMode;
     private DateSelectionAble dateSelectionAble;
     private SingleDate date;
     private SingleDate toDate;
@@ -22,10 +20,6 @@ public class DateSelectionModel {
 
     public DateSelectionModel(DatePicker.DateSelectionMode dateSelectionMode) {
         this(dateSelectionMode, null);
-    }
-
-    public DateSelectionModel(DateSelectionAble dateSelectionAble) {
-        this(DatePicker.DateSelectionMode.SINGLE_DATE_SELECTED, dateSelectionAble);
     }
 
     public DateSelectionModel(DatePicker.DateSelectionMode dateSelectionMode, DateSelectionAble dateSelectionAble) {
@@ -146,10 +140,6 @@ public class DateSelectionModel {
 
     public DatePicker.DateSelectionMode getDateSelectionMode() {
         return dateSelectionMode;
-    }
-
-    public void setDateSelectionMode(DatePicker.DateSelectionMode dateSelectionMode) {
-        this.dateSelectionMode = dateSelectionMode;
     }
 
     private boolean checkSelection(SingleDate date) {

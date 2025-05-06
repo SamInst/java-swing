@@ -2,20 +2,12 @@ package org.sam.calendario.swing.slider;
 
 import com.formdev.flatlaf.util.Animator;
 import com.formdev.flatlaf.util.CubicBezierEasing;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.VolatileImage;
 
 public class PanelSlider extends JLayeredPane {
-
-    public Component getSlideComponent() {
-        return slideComponent;
-    }
-
     private PanelSnapshot panelSnapshot;
-    private Component slideComponent;
-
     public PanelSlider() {
         init();
     }
@@ -29,7 +21,6 @@ public class PanelSlider extends JLayeredPane {
     }
 
     public void addSlide(Component component, SliderTransition transition) {
-        this.slideComponent = component;
         if (getComponentCount() == 1) {
             add(component);
             repaint();
@@ -62,12 +53,10 @@ public class PanelSlider extends JLayeredPane {
         return snapshot;
     }
 
-    private class PanelSnapshot extends JComponent {
-
-        private Animator animator;
+    private static class PanelSnapshot extends JComponent {
+        private final Animator animator;
         private Component component;
         private float animate;
-
         private SliderTransition sliderTransition;
         private Image oldImage;
         private Image newImage;

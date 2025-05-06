@@ -4,10 +4,9 @@ import java.time.LocalDate;
 import java.util.Calendar;
 
 public class SingleDate {
-
-    private int day;
-    private int month;
-    private int year;
+    private final int day;
+    private final int month;
+    private final int year;
 
     public SingleDate() {
         this(LocalDate.now());
@@ -32,27 +31,12 @@ public class SingleDate {
     public int getDay() {
         return day;
     }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
-
     public int getMonth() {
         return month;
     }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
     public int getYear() {
         return year;
     }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
     public boolean same(SingleDate date) {
         return date != null && year == date.year && month == date.month && day == date.day;
     }

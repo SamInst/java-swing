@@ -3,7 +3,6 @@ package org.sam.calendario.swing.slider;
 import java.awt.*;
 
 public class SimpleTransition {
-
     public static SliderTransition get(SliderType sliderType) {
         SliderTransition transition = null;
         if (sliderType == SliderType.BACK) {

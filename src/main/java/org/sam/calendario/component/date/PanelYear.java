@@ -22,15 +22,13 @@ public class PanelYear extends JPanel {
     }
 
     private void init() {
-        putClientProperty(FlatClientProperties.STYLE, "" +
-                "background:null");
+        putClientProperty(FlatClientProperties.STYLE, "background:null");
         setLayout(new MigLayout(
                 "novisualpadding,wrap 4,insets 0,fillx,gap 0,al center center",
                 "fill,sg main",
                 "fill"));
 
-        final int count = YEAR_CELL;
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < YEAR_CELL; i++) {
             final int y = getStartYear(year) + i;
             ButtonMonthYear button = new ButtonMonthYear(datePicker, y);
             button.setText(y + "");
@@ -48,12 +46,10 @@ public class PanelYear extends JPanel {
 
     private int getStartYear(int year) {
         int initYear = 1900;
-        int currentYear = year;
         int yearsPerPage = YEAR_CELL;
-        int yearsPassed = currentYear - initYear;
+        int yearsPassed = year - initYear;
         int pages = yearsPassed / yearsPerPage;
-        int startingYearOnPage = initYear + (pages * yearsPerPage);
-        return startingYearOnPage;
+        return initYear + (pages * yearsPerPage);
     }
 
     protected boolean checkSelected(int year) {
@@ -69,8 +65,7 @@ public class PanelYear extends JPanel {
     public void checkSelection() {
         for (int i = 0; i < getComponentCount(); i++) {
             Component com = getComponent(i);
-            if (com instanceof ButtonMonthYear) {
-                ButtonMonthYear button = (ButtonMonthYear) com;
+            if (com instanceof ButtonMonthYear button) {
                 button.setSelected(checkSelected(button.getValue()));
             }
         }

@@ -41,30 +41,6 @@ public abstract class PanelPopupEditor extends JPanel {
         }
     }
 
-    public boolean isEditorValidation() {
-        return editorValidation;
-    }
-
-    public void setEditorValidation(boolean editorValidation) {
-        if (this.editorValidation != editorValidation) {
-            this.editorValidation = editorValidation;
-            if (editor != null) {
-                if (editorValidation) {
-                    validChanged(editor, isValid);
-                } else {
-                    validChanged(editor, true);
-                }
-            }
-        }
-    }
-
-    public void setValidationOnNull(boolean validationOnNull) {
-        if (this.validationOnNull != validationOnNull) {
-            this.validationOnNull = validationOnNull;
-            commitEdit();
-        }
-    }
-
     protected void checkValidation(boolean status) {
         boolean valid = status || isEditorValidationOnNull();
         if (isValid != valid) {

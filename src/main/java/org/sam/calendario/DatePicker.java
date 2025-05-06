@@ -16,7 +16,6 @@ import org.sam.calendario.swing.slider.SimpleTransition;
 import org.sam.calendario.swing.slider.SliderTransition;
 import org.sam.calendario.util.InputUtils;
 import org.sam.calendario.util.InputValidationListener;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -25,20 +24,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DatePicker extends PanelPopupEditor implements DateSelectionModelListener, DateControlListener, ChangeListener {
-
     private DateTimeFormatter format;
-    private String dateFormatPattern = "dd/MM/yyyy";
+    private final String dateFormatPattern = "dd/MM/yyyy";
     private DateSelectionListener dateSelectionListener;
     private InputValidationListener<LocalDate> inputValidationListener;
     private DateSelectionModel dateSelectionModel;
     private PanelDateOption panelDateOption;
-    private PanelDateOptionLabel panelDateOptionLabel;
     private InputUtils.ValueCallback valueCallback;
     private Icon editorIcon;
-    private String separator = " to ";
-    private boolean usePanelOption;
+    private final String separator = " to ";
     private boolean closeAfterSelected;
-    private boolean animationEnabled = true;
     private int month = 10;
     private int year = 2023;
     private Color color;
@@ -60,8 +55,7 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
     }
 
     private void init(DateSelectionModel dateSelectionModel) {
-        putClientProperty(FlatClientProperties.STYLE, "" +
-                "[light]background:darken($Panel.background,2%);" +
+        putClientProperty(FlatClientProperties.STYLE, "[light]background:darken($Panel.background,2%);" +
                 "[dark]background:lighten($Panel.background,2%);");
         setLayout(new MigLayout(
                 "wrap,insets 10,fill",
@@ -154,32 +148,10 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
         return dateSelectionModel.getDateSelectionMode();
     }
 
-    public void setDateSelectionMode(DateSelectionMode dateSelectionMode) {
-        if (getDateSelectionMode() != dateSelectionMode) {
-            this.dateSelectionModel.setDateSelectionMode(dateSelectionMode);
-            if (editor != null) {
-                InputUtils.changeDateFormatted(editor, dateFormatPattern, getDateSelectionMode() == DateSelectionMode.BETWEEN_DATE_SELECTED, separator, getInputValidationListener());
-                this.defaultPlaceholder = null;
-                clearSelectedDate();
-                commitEdit();
-            }
-            repaint();
-        }
-    }
-
     public void now() {
         LocalDate date = LocalDate.now();
         if (getDateSelectionMode() == DateSelectionMode.BETWEEN_DATE_SELECTED) {
             setSelectedDateRange(date, date);
-        } else {
-            setSelectedDate(date);
-        }
-    }
-
-    public void selectCurrentMonth() {
-        LocalDate date = LocalDate.now();
-        if (getDateSelectionMode() == DateSelectionMode.BETWEEN_DATE_SELECTED) {
-            setSelectedDateRange(date.withDayOfMonth(1), date);
         } else {
             setSelectedDate(date);
         }
@@ -219,19 +191,6 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
         }
     }
 
-    public Icon getEditorIcon() {
-        return editorIcon;
-    }
-
-    public void setEditorIcon(Icon editorIcon) {
-        this.editorIcon = editorIcon;
-        editorButton.setIcon(editorIcon);
-    }
-
-    public DateSelectionAble getDateSelectionAble() {
-        return dateSelectionModel.getDateSelectionAble();
-    }
-
     public void setDateSelectionAble(DateSelectionAble dateSelectionAble) {
         this.dateSelectionModel.setDateSelectionAble(dateSelectionAble);
         if (selectionState == SelectionState.DATE) {
@@ -249,96 +208,8 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
         repaint();
     }
 
-    public String getSeparator() {
-        return separator;
-    }
-
-    public void setSeparator(String separator) {
-        if (separator == null) {
-            throw new IllegalArgumentException("separator can't be null");
-        }
-        if (!this.separator.equals(separator)) {
-            this.separator = separator;
-            if (editor != null) {
-                InputUtils.changeDateFormatted(editor, dateFormatPattern, getDateSelectionMode() == DateSelectionMode.BETWEEN_DATE_SELECTED, separator, getInputValidationListener());
-                this.defaultPlaceholder = null;
-                setEditorValue();
-            }
-        }
-    }
-
-    public String getDateFormat() {
-        return this.dateFormatPattern;
-    }
-
-    public void setDateFormat(String format) {
-        if (format == null) {
-            throw new IllegalArgumentException("format can't be null");
-        }
-        if (!this.dateFormatPattern.equals(format)) {
-            this.format = DateTimeFormatter.ofPattern(format);
-            if (editor != null) {
-                InputUtils.changeDateFormatted(editor, format, getDateSelectionMode() == DateSelectionMode.BETWEEN_DATE_SELECTED, separator, getInputValidationListener());
-                this.defaultPlaceholder = null;
-            }
-            this.dateFormatPattern = format;
-        }
-    }
-
-    public boolean isUsePanelOption() {
-        return usePanelOption;
-    }
-
-    public void setUsePanelOption(boolean usePanelOption) {
-        if (this.usePanelOption != usePanelOption) {
-            this.usePanelOption = usePanelOption;
-            if (usePanelOption) {
-                if (panelDateOption == null) {
-                    panelDateOption = new PanelDateOption(this);
-                    panelDateOption.installDateOptionLabel();
-                }
-                add(panelDateOption, "dock east,gap 0 10 10 10");
-                repaint();
-                revalidate();
-            } else {
-                if (panelDateOption != null) {
-                    remove(panelDateOption);
-                    panelDateOption = null;
-                    repaint();
-                    revalidate();
-                }
-            }
-        }
-    }
-
-    public PanelDateOptionLabel getPanelDateOptionLabel() {
-        return panelDateOptionLabel;
-    }
-
-    public void setPanelDateOptionLabel(PanelDateOptionLabel panelDateOptionLabel) {
-        if (panelDateOptionLabel == null) {
-            throw new IllegalArgumentException("panelDateOptionLabel can't be null");
-        }
-        this.panelDateOptionLabel = panelDateOptionLabel;
-        if (panelDateOption != null) {
-            panelDateOption.installDateOptionLabel();
-        }
-    }
-
     public boolean isCloseAfterSelected() {
         return closeAfterSelected;
-    }
-
-    public void setCloseAfterSelected(boolean closeAfterSelected) {
-        this.closeAfterSelected = closeAfterSelected;
-    }
-
-    public boolean isAnimationEnabled() {
-        return animationEnabled;
-    }
-
-    public void setAnimationEnabled(boolean animationEnabled) {
-        this.animationEnabled = animationEnabled;
     }
 
     public void clearSelectedDate() {
@@ -419,10 +290,6 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
         listenerList.remove(DateSelectionListener.class, listener);
     }
 
-    public Header getHeader() {
-        return header;
-    }
-
     public DateSelectionModel getDateSelectionModel() {
         return dateSelectionModel;
     }
@@ -482,6 +349,7 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
     }
 
     protected SliderTransition getSliderTransition(SimpleTransition.SliderType type) {
+        boolean animationEnabled = true;
         if (!animationEnabled) {
             return null;
         }
@@ -501,7 +369,7 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
     private void installEditor(JFormattedTextField editor) {
         if (editor != null) {
             JToolBar toolBar = new JToolBar();
-            editorButton = new JButton(editorIcon != null ? editorIcon : new FlatSVGIcon("raven/datetime/icon/calendar.svg", 0.8f));
+            editorButton = new JButton(editorIcon != null ? editorIcon : new FlatSVGIcon("icones/calendario/calendar.svg", 0.8f));
             toolBar.add(editorButton);
             editorButton.addActionListener(e -> {
                 if (editor.isEnabled()) {
@@ -563,7 +431,7 @@ public class DatePicker extends PanelPopupEditor implements DateSelectionModelLi
     private void setEditorValue() {
         String value = getSelectedDateAsString();
         if (value != null) {
-            if (!editor.getText().toLowerCase().equals(value.toLowerCase())) {
+            if (!editor.getText().equalsIgnoreCase(value)) {
                 editor.setValue(value);
             }
         } else {

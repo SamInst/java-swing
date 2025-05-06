@@ -3,7 +3,6 @@ package org.sam.calendario.swing.slider;
 import java.awt.*;
 
 public abstract class SliderTransition {
-
     public abstract void renderImageOld(Graphics g, Image image, int width, int height, float animate);
 
     public abstract void renderImageNew(Graphics g, Image image, int width, int height, float animate);

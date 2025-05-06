@@ -3,7 +3,6 @@ package org.sam.calendario.component.date;
 import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
 import org.sam.calendario.DatePicker;
-
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -11,7 +10,6 @@ import java.awt.*;
 import java.text.DateFormatSymbols;
 
 public class PanelMonth extends JPanel {
-
     private final DatePicker datePicker;
     private final int year;
     private int selectedMonth = -1;
