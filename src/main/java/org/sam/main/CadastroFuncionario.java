@@ -37,16 +37,6 @@ public class CadastroFuncionario {
         this.repositorioFuncionario = repositorioFuncionario;
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            FlatLightLaf.setup();
-            CadastroFuncionario app = new CadastroFuncionario(
-                    new FuncionarioRepository(),
-                    new UsuarioLogado("Usuario teste", "email@email.com"));
-            app.iniciarAplicacao();
-        });
-    }
-
     public void iniciarAplicacao() {
         JFrame janelaApresentacao = new JFrame("Sistema de Cadastro de Funcionários");
         janelaApresentacao.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
