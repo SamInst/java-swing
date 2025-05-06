@@ -24,6 +24,7 @@ import java.util.Objects;
 import static java.lang.Double.parseDouble;
 
 public class Login extends JFrame {
+    private static Login instancia;
     private JLayeredPane fundo;
     private final DecimalFormat formatoDecimal = new DecimalFormat("##0.###", DecimalFormatSymbols.getInstance(Locale.US));
     private MigLayout migLayout;
@@ -35,6 +36,7 @@ public class Login extends JFrame {
     private final double tamanhoLogin = 60;
 
     public Login() {
+        instancia = this;
         GlassPanePopup.install(this);
         FlatRobotoFont.install();
         FlatLaf.registerCustomDefaultsSource("themes");
@@ -51,6 +53,12 @@ public class Login extends JFrame {
         iniciarComponentes();
         iniciar();
 
+    }
+
+    public static void fechar() {
+        if (instancia != null) {
+            SwingUtilities.invokeLater(instancia::dispose);
+        }
     }
 
     private void iniciar() {

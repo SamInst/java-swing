@@ -1,6 +1,8 @@
 package org.sam.component;
 
 import net.miginfocom.swing.MigLayout;
+import org.sam.main.Login;
+import org.sam.repository.funcionario.FuncionarioRepository;
 import org.sam.repository.usuario.Usuario;
 import org.sam.repository.usuario.UsuarioRepository;
 import org.sam.swing.Button;
@@ -9,6 +11,7 @@ import org.sam.swing.MyTextField;
 import raven.alerts.MessageAlerts;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 import static org.sam.main.CoresApp.BRANCO;
@@ -134,6 +137,19 @@ public class PainelLoginERegistro extends JLayeredPane {
                                 "Autenticação bem-sucedida",
                                 "Bem-vindo, " + usuarioAutenticado.usuario() + "!",
                                 MessageAlerts.MessageType.SUCCESS);
+
+                MessageAlerts.getInstance().showMessage("Autenticação bem-sucedida",
+                        "Bem-vindo, " + usuarioAutenticado.usuario() + "!",
+                        MessageAlerts.MessageType.SUCCESS,
+                        MessageAlerts.CLOSED_OPTION,
+                        (pc,i)->{
+                            if(i == MessageAlerts.OK_OPTION){
+                                TabelaEstilizada tabela = new TabelaEstilizada(new FuncionarioRepository());
+                                tabela.iniciarAplicacao();
+                                Login.fechar();
+                            }
+                        }
+                );
 
             } catch (RuntimeException ex) {
                 MessageAlerts.getInstance()
