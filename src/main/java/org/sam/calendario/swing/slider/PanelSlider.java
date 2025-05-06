@@ -2,6 +2,7 @@ package org.sam.calendario.swing.slider;
 
 import com.formdev.flatlaf.util.Animator;
 import com.formdev.flatlaf.util.CubicBezierEasing;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.VolatileImage;

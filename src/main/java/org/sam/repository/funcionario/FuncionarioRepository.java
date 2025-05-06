@@ -61,14 +61,11 @@ public class FuncionarioRepository {
         return funcionarios;
     }
 
-    public boolean removerFuncionario(Long id) {
+    public void removerFuncionario(Long id) {
         String sql = "DELETE FROM funcionario WHERE id = ?";
 
         try (PreparedStatement statement = conexao.prepareStatement(sql)) {
             statement.setLong(1, id);
-            int linhasAfetadas = statement.executeUpdate();
-
-            return linhasAfetadas > 0;
         } catch (SQLException e) {
             MessageAlerts.getInstance()
                     .showMessage(

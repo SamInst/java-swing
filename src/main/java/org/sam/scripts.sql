@@ -10,6 +10,7 @@ salario FLOAT NOT NULL,
 status BOOLEAN NOT NULL
 );
 
+-- Cria a tabela usuario se não existir
 CREATE TABLE IF NOT EXISTS usuario (
 id INT8 GENERATED ALWAYS AS IDENTITY(INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE) PRIMARY KEY,
 usuario VARCHAR(255) NOT NULL UNIQUE,
@@ -24,3 +25,6 @@ INSERT INTO funcionario (nome, data_admissao, salario, status) VALUES
 ('Carlos Santos', '2023-01-22 10:00:00', 3800.25, TRUE),
 ('Ana Pereira', '2022-07-05 08:00:00', 4100.00, FALSE),
 ('Paulo Rodrigues', '2023-05-18 13:45:00', 4750.80, TRUE);
+
+-- usuario admin para testes
+insert into usuario (usuario, email, senha) VALUES ('admin','admin','admin');

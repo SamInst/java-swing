@@ -4,7 +4,6 @@ package org.sam.main;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
-import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import net.miginfocom.swing.MigLayout;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
@@ -39,7 +38,6 @@ public class Login extends JFrame {
         instancia = this;
         GlassPanePopup.install(this);
         FlatRobotoFont.install();
-        FlatLaf.registerCustomDefaultsSource("themes");
         UIManager.put("defaultFont", new Font(FlatRobotoFont.FAMILY, Font.PLAIN, 13));
         FlatLightLaf.setup();
 

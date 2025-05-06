@@ -3,7 +3,6 @@ package org.sam.component;
 import net.miginfocom.swing.MigLayout;
 import org.sam.swing.ButtonOutLine;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

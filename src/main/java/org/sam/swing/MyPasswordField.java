@@ -3,6 +3,7 @@ package org.sam.swing;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+
 import static org.sam.main.CoresApp.COR_PADRAO;
 
 public class MyPasswordField extends JPasswordField {

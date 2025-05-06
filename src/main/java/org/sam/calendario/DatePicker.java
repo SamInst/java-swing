@@ -16,6 +16,7 @@ import org.sam.calendario.swing.slider.SimpleTransition;
 import org.sam.calendario.swing.slider.SliderTransition;
 import org.sam.calendario.util.InputUtils;
 import org.sam.calendario.util.InputValidationListener;
+
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;

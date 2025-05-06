@@ -1,11 +1,8 @@
 package org.sam.swing;
 
-import java.awt.*;
-import javax.swing.BorderFactory;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 import static org.sam.main.CoresApp.COR_PADRAO;
 
