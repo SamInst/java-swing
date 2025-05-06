@@ -10,5 +10,6 @@ public class Icones {
     public static FlatSVGIcon info = new FlatSVGIcon( "icones/notificacoes/info.svg");
     public static FlatSVGIcon ok = new FlatSVGIcon( "icones/notificacoes/check.svg");
 
-    public static ImageIcon close = new ImageIcon("src/main/resources/icones/close.png");
+    public static ImageIcon remove = new ImageIcon("src/main/resources/icones/close.png");
+    public static ImageIcon calendario = new ImageIcon("src/main/resources/icones/calendario.png");
 }
